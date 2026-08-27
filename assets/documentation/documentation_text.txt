@@ -1,0 +1,903 @@
+
+===== ScoreX_About_Us =====
+
+--- Page 1 ---
+ScoreX • About Us
+Page 1
+SCOREX
+ABOUT US
+Cricket scoring, simplified.
+ScoreX is an Android cricket scoring application created to make live cricket scoring
+faster, clearer and easier to manage. From match setup to the final scorecard, ScoreX
+brings the essential scoring workflow into one mobile application.
+Who We Are
+We are the team behind ScoreX, an Android-based cricket scoring project focused on combining practical live
+scoring with useful match analysis. The application was developed around the real needs of a scorer: quick delivery
+entry, automatic statistics, clear innings information and an easy way to review the match later.
+ScoreX is designed as a local-first application. The current version does not depend on a traditional database or
+cloud service for ordinary scoring. Match history, application settings and generated scorecard PDFs are handled
+using local Android/Java storage mechanisms.
+Our Vision
+Our vision is to build a cricket scoring experience that feels simple during a live match but becomes powerful when
+the match is finished. A scorer should be able to concentrate on the game instead of manually calculating every
+statistic.
+LIVE
+Fast scoring
+Record runs, extras and
+wickets directly during the
+match.
+SMART
+Automatic stats
+Keep batting, bowling,
+partnership and innings
+information synchronized.
+CLEAR
+Better review
+Use scorecards, graphs,
+history and PDF export after
+scoring.
+What ScoreX Offers
+FEATURE
+DESCRIPTION
+Match Setup
+Teams, overs, toss winner and toss decision.
+
+--- Page 2 ---
+ScoreX • About Us
+Page 2
+FEATURE
+DESCRIPTION
+Live Scoring
+Normal runs, extras and wickets during an innings.
+Special Scoring
+Wide, No Ball, Bye, Leg Bye and Run Out with completed runs.
+Player & Bowling Stats
+Batting, bowling, partnerships and over information.
+Undo
+Correct the most recent scoring action.
+Scorecard
+Detailed batting, extras, bowling, fall of wickets and partnership
+information.
+Graphs
+Runs per over, run rate and innings comparison with wicket markers.
+Match History
+Locally save, open and delete completed matches.
+PDF Scorecard
+Generate and share a permanent scorecard document.
+Settings
+Application/scoring preferences, saved PDFs, history and About
+information.
+Our Development Approach
+ScoreX is structured around Android activities for the user interface and a dedicated scoring/model layer for match
+state. The scoring logic is designed to keep delivery events connected to player, bowler, partnership, over and
+innings information.
+Technology
+ANDROID
+JAVA
+LOCAL-FIRST
+Mobile application
+Java 11 compatible
+Local match & PDF storage
+Meet the Team
+BHATT PARTHIL
+NIMAVAT VIRAJ
+Primary development
+Android application development, scoring
+workflow, UI integration and project completion.
+Development support
+Development support, testing and project
+documentation.
+Where We Want to Go
+The current ScoreX foundation can be extended in future versions with cloud backup, online score sharing, player
+and team profiles, tournament management, multi-device collaboration and richer cricket analytics.
+Built for the game. Designed for the scorer.
+
+--- Page 3 ---
+ScoreX • About Us
+Page 3
+SCOREX • Cricket Scorer • Version 1.0
+Android Application
+
+===== ScoreX_Master_Project_Documentation =====
+
+--- Page 1 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+03
+PROJECT OVERVIEW
+SCOREX • Version 1.0
+
+--- Page 2 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+04
+01. Executive Summary
+ScoreX is an Android cricket scoring application built to manage a match from initial setup through live delivery
+entry, innings management, statistics, scorecard review, graphs, local match history and PDF scorecard generation.
+The central design idea is delivery-level state. A single delivery can affect the team score, batsman runs, balls,
+bowler statistics, legal-ball count, strike, partnership and wicket state. ScoreX keeps these related changes
+coordinated through its scoring/model layer rather than treating the score as a single text value.
+The current project is a local Android application. It does not contain a
+traditional relational database or cloud backend in the supplied source. Match
+history uses Java serialization, settings use SharedPreferences, and generated
+PDFs are kept locally.
+Project identity
+Item
+Current project value
+Application
+ScoreX Cricket Scorer
+Application ID
+com.apocalypes.scorex
+Version
+1.0
+Language
+Java
+Java compatibility
+11
+Minimum SDK
+24
+Compile / Target SDK
+37
+Storage approach
+Local files + SharedPreferences
+Traditional database
+Not used
+
+--- Page 3 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+05
+02. Problem Statement, Objectives & Scope
+Problem Statement
+Manual cricket scoring requires continuous calculations and synchronized tracking. When a wide, no-ball, wicket,
+partnership change or run-out occurs, several statistics may need to change at the same time. A small mistake can
+therefore propagate into the scorecard and final result.
+ScoreX addresses this by recording delivery events and maintaining structured information for players, bowlers,
+overs, partnerships and innings.
+Objectives
+• Provide an easy-to-use Android interface for live cricket scoring.
+• Reduce repetitive manual calculations during matches.
+• Maintain consistent batting, bowling, partnership and innings information.
+• Provide a structured scorecard for match review.
+• Provide graphs for visual scoring analysis.
+• Store completed matches locally for later review.
+• Generate shareable PDF scorecards.
+Scope
+The current scope covers local match scoring and review. It includes match setup, live scoring, special deliveries,
+wickets, innings transitions, result calculation, scorecard, graphs, history, settings and PDF export. It does not claim
+cloud synchronization, online accounts or a remote database.
+CORE FEATURE
+WHAT IT DOES
+Match Setup
+Teams, overs, toss winner and decision.
+Advanced Settings
+Players-per-team and special-delivery behavior.
+Opening Players
+Striker, non-striker and opening bowler.
+Live Scoring
+Normal runs and match controls.
+Extras
+Wide, No Ball, Bye and Leg Bye.
+Wickets
+Dismissal and wicket state.
+Run Out Runs
+Completed runs are retained on Run Out.
+Undo
+Reverses the most recent delivery.
+Partnerships
+Current/completed partnership information.
+Bowling
+Overs, runs, wickets and special deliveries.
+Overs
+Delivery and over-level match information.
+Innings
+First and second innings.
+Match Result
+Final result after completion.
+Scorecard
+Batting, extras, bowling, FOW and partnerships.
+
+--- Page 4 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+06
+CORE FEATURE
+WHAT IT DOES
+Graphs
+Runs-per-over, rate and innings comparison.
+Match History
+Local save/load/delete.
+PDF Export
+Formatted scorecard documents.
+Settings
+Preferences, About and static Google link.
+
+--- Page 5 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+07
+SYSTEM DESIGN
+SCOREX • Version 1.0
+
+--- Page 6 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+08
+03. Technology & System Requirements
+Technology Stack
+Layer
+Technology / value
+Mobile platform
+Android
+Programming language
+Java
+Java compatibility
+11
+Minimum SDK
+24
+Compile / Target SDK
+37
+UI
+AndroidX + Material components
+Local settings
+Android SharedPreferences
+Match persistence
+Java serialization (.ser)
+PDF output
+Local scorecard PDF files
+Hardware Requirements
+• Android smartphone or compatible emulator.
+• Android API 24 or later.
+• Sufficient local storage for match history and generated PDFs.
+• Touch input for the scoring interface.
+Software Requirements
+• Android Studio and a compatible Android SDK.
+• Java 11-compatible build environment.
+• Gradle configuration supplied with the project.
+Design Principle
+The application is designed to work for ordinary scoring without a network service. This makes the core scorer
+suitable for situations such as grounds where connectivity may be unreliable.
+Architecture at a Glance
+USER
+PRESENTATION
+SCORING CORE
+DATA / OUTPUT
+Scorer enters match
+events
+Activities & UI Live
+Match • Scorecard •
+Graphs
+MatchManager Models •
+Rules • Undo
+History • Settings
+PDF • Local Files
+
+--- Page 7 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+09
+04. System Architecture & Modules
+Architectural Flow
+The supplied project separates screen-level responsibilities from the scoring/model layer. Activities provide user
+interaction, while MatchManager and the model classes represent the state of the match. Persistence and PDF
+output sit around this core.
+Layer
+Examples
+Responsibility
+Presentation
+MainActivity, NewMatchActivity, LiveMatchActivity, ScorecardActivity, GraphsActivity, SettingsActivity
+Screens, user actions and visual output
+Scoring / control
+MatchManager
+Delivery rules, extras, wickets, undo, innings and result logic
+Models
+Match, Ball, Over, Player, Bowler, Partnership, SavedMatch
+Structured cricket state
+Persistence
+MatchHistoryStore, SharedPreferences
+History and settings
+Output
+ScoreXPdfExportUtil / PDF flow
+Formatted scorecard document
+Application Modules
+MODULE
+ROLE
+Main
+Entry point and navigation.
+New Match
+Team names, overs, toss winner and decision.
+Advanced Settings
+Players-per-team and special scoring configuration.
+Opening Players
+Striker, non-striker and opening bowler.
+Live Match
+Central delivery scoring and match controls.
+Scorecard
+Detailed innings presentation and PDF access.
+Graphs
+Runs-per-over, run-rate and innings comparison.
+Match History
+Local saved matches and deletion.
+Match Finished
+Completed-match/result flow.
+Settings
+Preferences, history, PDFs, About and link.
+About
+Application/project information.
+Typical User Journey
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Create
+Match
+Configur
+e
+Opening
+Players
+Live
+Scoring
+Innings
+Complet
+e
+Second
+Innings
+Result
+Scoreca
+rd /
+Graphs
+PDF /
+History
+
+--- Page 8 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+10
+05. Core Data Model & Scoring Workflow
+Core Model Objects
+Object
+Purpose
+Match
+Match-level score, wickets, balls, innings and partnership state.
+Ball
+One delivery: runs, extras, legal-ball and wicket information.
+Player
+Batting statistics and player status.
+Bowler
+Bowling statistics and special-delivery values.
+Over
+Over number and delivery/run information.
+Partnership
+Current/completed partnership data.
+MatchManager
+Applies rules and coordinates state updates.
+SavedMatch
+Serializable representation used by Match History.
+Delivery Lifecycle
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Input
+Validate
+Apply
+Runs /
+Extras
+Apply
+Wicket
+Update
+Player/B
+owler
+Update
+Partners
+hip
+Update
+Over
+Update
+Innings
+Refresh
+UI
+Live Scoring Workflow
+• Create and configure the match.
+• Select opening striker, non-striker and bowler.
+• Record one delivery at a time.
+• Update batsman, bowler, partnership and over information.
+• Process special deliveries and wickets.
+• Use Undo when the latest delivery is incorrect.
+• Complete the first innings and initialize the chase.
+• Finish the second innings and calculate the result.
+• Review Scorecard, Graphs, History and PDF.
+Why Delivery-Level State Matters
+A cricket score is not enough by itself. For example, a No Ball + 4 requires the team total, batsman runs, extra total
+and ball legality to remain consistent. A Run Out + 2 similarly requires both the wicket and completed runs. ScoreX's
+model-oriented approach supports this multi-value update.
+
+--- Page 9 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+11
+SCORING RULES
+SCOREX • Version 1.0
+
+--- Page 10 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+12
+06. Detailed Cricket Scoring Rules
+Normal Delivery
+A normal scoring action records batsman runs and contributes to the legal-ball count according to the delivery state.
+Wide
+Wide is an extra. The project contains configurable wide behavior, including the configured run value and
+re-ball/legal-ball behavior.
+No Ball
+No Ball records the no-ball extra separately from batsman runs. The project contains configurable no-ball behavior.
+Bye
+Bye adds to team extras without adding those runs to the batsman's personal run total.
+Leg Bye
+Leg Bye adds to the appropriate team extras category without becoming batsman runs.
+Wicket
+A wicket is recorded on the delivery and related wicket/dismissal information is updated.
+Run Out
+Run Out can include completed runs. The completed runs are retained rather than discarded when the wicket is
+recorded.
+Undo
+Undo reverses the latest delivery and the related scoring state.
+Over
+Legal deliveries advance the over state according to the scoring rules; special deliveries can affect the legal-ball
+count.
+Innings
+The first and second innings are maintained separately so the chase and final result can be evaluated.
+Run Out Examples
+Delivery
+Meaning in over
+Expected scoring concept
+W
+Wicket only
+Wicket recorded; no completed run.
+1 + W
+Run Out after one completed run
+One completed run + wicket.
+2 + W
+Run Out after two completed runs
+Two completed runs + wicket.
+4 + W
+Run Out after boundary/completed four
+Four completed runs + wicket.
+No Ball + 4
+The important distinction is that the no-ball extra and batsman runs are separate concepts. The delivery can
+therefore contribute to the team total through both components while following the project's legal-ball/re-ball
+
+--- Page 11 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+13
+behavior.
+
+--- Page 12 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+14
+SCORECARD & ANALYTICS
+SCOREX • Version 1.0
+
+--- Page 13 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+15
+07. Scorecard, Graphs & PDF System
+Scorecard
+The Scorecard is designed as the main review screen after or during an innings. Its information is organized around
+cricket concepts rather than a generic data table.
+Section
+Information
+Batting
+Player, runs, balls, boundaries and strike rate.
+Extras
+Total extras and categories.
+Bowling
+Overs, maidens, runs, wickets and economy-related values.
+Fall of Wickets
+Wicket sequence with score/over context.
+Partnerships / Overs
+Supporting innings and over review.
+Graphs
+GraphsActivity provides visual analysis rather than another table. The project includes runs-per-over, run-rate and
+innings-comparison concepts. The innings comparison is intended to show cumulative scoring for both innings, with
+wicket events marked at the relevant scoring position.
+Graph Design Goals
+• Keep over labels readable and avoid overlapping text.
+• Use cumulative score as the main comparison line.
+• Place wicket markers on the actual score line rather than floating away from it.
+• Make both innings visually comparable even when their lengths differ.
+• Keep the graph useful for a quick cricket-style match review.
+PDF Scorecard
+The PDF output converts scorecard information into a permanent/shareable document. A good PDF should use
+consistent typography, spacing, section hierarchy, page breaks and table widths so that long names and multiple
+innings do not collide.
+
+--- Page 14 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+16
+DATA & CONSTRAINTS
+SCOREX • Version 1.0
+
+--- Page 15 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+17
+08. Data Storage, Privacy & Constraints
+Storage Architecture
+The current ScoreX project does not use SQLite, Room, Firebase, MySQL or another traditional database layer.
+Instead, it uses local Android/Java storage mechanisms.
+Data
+Mechanism
+Purpose
+Match History
+Java serialization (.ser)
+Save/load/delete SavedMatch objects.
+Settings
+SharedPreferences
+Store application/scoring preferences.
+PDF exports
+Local files / scorex_exports
+Keep generated scorecards for sharing/deletion.
+Privacy
+• Ordinary scoring information remains on the device.
+• No cloud synchronization is required for normal scoring.
+• Sharing a PDF uses Android's sharing mechanism.
+• Clearing application data can remove local history/settings/PDF data.
+Constraints
+• No remote database or account system in the supplied project.
+• No built-in multi-device collaboration.
+• Local storage capacity limits retained history/PDFs.
+• The application is currently documented as Version 1.0.
+
+--- Page 16 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+18
+SOFTWARE REQUIREMENTS
+SCOREX • Version 1.0
+
+--- Page 17 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+19
+09. Software Requirements Specification
+ID
+Requirement
+FR-01
+Match creation: accept team names and overs.
+FR-02
+Toss: store winner and decision.
+FR-03
+Advanced settings: players-per-team and wide/no-ball behavior.
+FR-04
+Opening setup: striker, non-striker and bowler.
+FR-05
+Normal runs: update team/player/bowler state.
+FR-06
+Extras: Wide, No Ball, Bye, Leg Bye.
+FR-07
+Wickets: record dismissal information.
+FR-08
+Run Out: preserve completed runs.
+FR-09
+Strike: maintain delivery-based strike state.
+FR-10
+Partnership: maintain current/completed partnerships.
+FR-11
+Bowling: maintain bowler statistics.
+FR-12
+Undo: reverse latest delivery.
+FR-13
+Innings: support first/second innings.
+FR-14
+Result: calculate/display completion result.
+FR-15
+Scorecard: display detailed innings information.
+FR-16
+Graphs: display scoring visualizations.
+FR-17
+History: save/load/delete locally.
+FR-18
+PDF: generate/manage/share scorecards.
+FR-19
+Settings: provide application/scoring controls.
+FR-20
+Link: provide configured static Google link.
+Non-Functional Requirements
+• Usability: readable on phone-sized displays.
+• Performance: ordinary scoring is local and should not require network access.
+• Reliability: Undo and persistence should restore/retain correct state.
+• Maintainability: scoring state is organized in dedicated classes.
+• Portability: Android API 24+.
+User Classes
+User
+Typical activity
+Scorer
+Create matches and enter deliveries.
+
+--- Page 18 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+20
+User
+Typical activity
+Reviewer
+Open history, scorecard, graphs and PDFs.
+Developer
+Maintain scoring rules, UI and persistence.
+
+--- Page 19 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+21
+10. Testing Strategy & Test Cases
+Testing Strategy
+Testing is centered on scoring correctness, state consistency, UI readability and persistence. Special attention
+should be given to deliveries that have more than one effect.
+Detailed Test Cases
+ID
+Test
+Action
+Expected
+Priority
+T01
+Valid match setup
+Teams/overs/toss
+Opening setup reached
+Critical
+T02
+Invalid overs
+Invalid value
+Validation/rejection
+High
+T03
+Normal runs
+0/1/2/3/4/6
+Correct totals
+Critical
+T04
+Wide
+Wide delivery
+Correct extra/legal behavior
+Critical
+T05
+No Ball
+No Ball
+Correct extra/legal behavior
+Critical
+T06
+No Ball + 4
+No Ball + 4
+Extra + batsman runs
+Critical
+T07
+Wicket
+Wicket
+Wicket state updated
+Critical
+T08
+Run Out
+W
+Wicket only
+Critical
+T09
+Run Out + 1
+1+W
+Run retained + wicket
+Critical
+T10
+Run Out + 2
+2+W
+Run retained + wicket
+Critical
+T11
+Run Out + 4
+4+W
+Run retained + wicket
+Critical
+T12
+Undo
+Undo last run
+Previous state
+Critical
+T13
+Undo wicket
+Undo wicket
+Wicket/state restored
+Critical
+T14
+Undo special
+Undo no-ball
+Extra/state restored
+Critical
+T15
+Bowling
+Multiple bowlers
+Statistics consistent
+High
+T16
+Scorecard
+Open scorecard
+Sections visible
+High
+T17
+Graphs
+Multiple overs
+Clean rendering
+High
+T18
+Wicket markers
+Both innings
+Dots on score line
+High
+T19
+First innings
+Complete
+Second innings ready
+Critical
+T20
+Chase
+Reach target
+Correct winner
+Critical
+T21
+Defence
+Below target
+Correct result
+Critical
+T22
+History
+Save/load
+Match persists
+High
+T23
+History delete
+Delete
+Removed
+High
+T24
+PDF
+Generate
+Readable/no overlap
+Critical
+T25
+PDF share
+Share
+Android share flow
+Medium
+T26
+Settings
+Google link
+Google opens
+Low
+
+--- Page 20 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+22
+Regression Checklist
+• MatchManager: rerun runs, extras, wickets, Run Out, no-ball and Undo.
+• Scorecard: verify batting, all bowlers, extras, FOW, partnerships and PDF.
+• Graphs: verify both innings, labels, cumulative lines and wicket dots.
+• PDF: verify long names, multiple rows, page breaks and two innings.
+• History: verify save, open and delete.
+• Settings: verify preferences and static Google link.
+Evidence Note
+For a final academic submission, actual screenshots from the tested device should be inserted. This master
+document does not fabricate screenshots that were not supplied as evidence.
+
+--- Page 21 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+23
+USER MANUAL
+SCOREX • Version 1.0
+
+--- Page 22 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+24
+11. User Manual
+Quick Start
+Create Match → Teams/Overs → Toss → Opening Players → Live Scoring →
+Innings Completion → Scorecard/Graphs → PDF/History
+1. Create a New Match
+Step
+Action
+1
+Enter Team A name
+2
+Enter Team B name
+3
+Enter number of overs
+4
+Select toss winner
+5
+Select Bat or Bowl
+6
+Start match
+2. Opening Players
+Select striker, non-striker and opening bowler before the first delivery.
+3. Live Scoring
+• Use normal run buttons for legal deliveries.
+• Use Wide, No Ball, Bye and Leg Bye for extras.
+• Use Wicket for dismissals.
+• For Run Out with completed runs, include the completed runs in the wicket event.
+• Use Undo immediately after an incorrect delivery.
+• Open Scorecard or Graphs for review.
+4. Scorecard
+• Batting — runs, balls, boundaries and strike rate.
+• Extras — total and categories.
+• Bowling — overs, maidens, runs, wickets and related values.
+• Fall of Wickets — wicket sequence.
+• Partnerships/overs — supporting innings information.
+5. Graphs
+Runs-per-over shows scoring volume. Run-rate shows scoring speed. Innings Comparison shows cumulative
+progress for both innings and places wicket markers at their score positions.
+6. Match History
+• Open saved matches.
+
+--- Page 23 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+25
+• Review a saved match.
+• Delete unwanted local records.
+7. PDF
+• Open Scorecard.
+• Generate PDF.
+• Open Saved PDFs.
+• Share or delete the document.
+8. Settings
+• Scorecard style
+• Clear Match History
+• Saved PDFs
+• About ScoreX
+• Static Google link
+• Scoring/application preferences
+9. Good Scoring Practice
+• Enter one delivery at a time.
+• Verify the score after special deliveries.
+• Use Undo instead of manually compensating for mistakes.
+• Review the complete scorecard before sharing the PDF.
+
+--- Page 24 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+28
+Q. What is future scope?
+A. Cloud backup, online sharing, player/team profiles, tournaments and richer analytics.
+Q. Application ID?
+A. com.apocalypes.scorex.
+Q. Version?
+A. 1.0.
+
+--- Page 25 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+29
+CONCLUSION & FUTURE SCOPE
+SCOREX • Version 1.0
+
+--- Page 26 ---
+SCOREX  /  MASTER PROJECT DOCUMENTATION
+30
+13. Limitations, Future Scope & Conclusion
+Current Limitations
+• No cloud synchronization.
+• No remote/relational database.
+• No user-account system.
+• No built-in multi-device collaboration.
+• Local storage capacity limits retained records and PDFs.
+Future Scope
+• Cloud backup and restore.
+• Online score sharing through a hosted match link.
+• Player and team profiles with career statistics.
+• Tournament and points-table management.
+• Multi-device scorer collaboration.
+• Advanced phase-by-phase analytics.
+• Richer bowling spell and batting analysis.
+• Automatic PDF backup.
+Developer Contributions
+Developer
+Contribution
+Bhatt Parthil
+Android application development, scoring workflow, UI integration and project completion.
+Nimavat Viraj
+Development support, testing and project documentation.
+Conclusion
+ScoreX provides an end-to-end local Android cricket scoring workflow. Its main strength is the coordinated handling
+of delivery events and the resulting player, bowler, partnership, innings and match information. The project extends
+beyond simple score entry with scorecards, visual analytics, local history and PDF output.
+Documentation Integrity
+This master document intentionally stays within the capabilities represented by the supplied ScoreX project. It does
+not claim a database, cloud service or other feature that is not supported by the source.

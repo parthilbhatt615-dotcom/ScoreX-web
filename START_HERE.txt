@@ -1,6 +1,0 @@
-START HERE
-1. Open index.html in a browser.
-2. Use the navigation to test every page.
-3. Put the final APK at downloads/ScoreX.apk for installation downloads.
-4. The Contact page prepares a feedback email with name, email, topic and message.
-5. Replace https://github.com/ with the ScoreX repository URL when available.
